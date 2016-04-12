@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.phonegap.optoemtriststoday"
+        versionCode = "10" 
+        version     = "1.0.0" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>OT OrderUnlock App VP</name>
+
+    <description>
+        Order unlock application
+    </description>
+
+    <author email="larryaugustine@optometriststoday.com">
+        Larry Augustine
+    </author>
+
+</widget>

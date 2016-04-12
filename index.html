@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EncryptMe</title>
+<script>
+    
+    var interval = 5
+    var user = "vp";
+    
+    function str_split(string)
+	{
+        if (string == null)
+		{
+            return false;
+        }
+		
+        string += '';
+        var pieces = [],
+        pos = 0,
+        len = string.length;
+		
+        while (pos < len)
+		{
+            pieces.push(string.slice(pos, pos += 1));
+        }
+		
+        return pieces;
+    }
+	
+    function intFromLetter(string)
+	{
+        alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+        splitted_string = str_split(string);
+        number = "";
+        
+        for (i = 0; i < splitted_string.length; i++)
+		{ 
+            var letterPosition = alphabet.indexOf(splitted_string[i])+1;
+            if(letterPosition < 10) letterPosition = "0" + letterPosition;            
+            number+=letterPosition
+        }
+		
+        return number;
+    }
+	
+    function sumString(string)
+    {
+        string = str_split(string);
+        sum = 0;
+        for(x = 0; x < string.length; x++)
+        {
+            sum+=parseInt(string[x]);
+        }
+		
+        return sum;
+    }
+	
+    function getCode()
+    {
+		var dtDate = new Date();
+		var orderID = document.getElementById("orderID").value 
+		if(isNaN(parseInt(orderID))) orderID = "";
+		
+		if(orderID.length < 1)
+		{
+			document.getElementById("result").innerHTML = "Please enter an order number";
+			return false;
+		}
+        yr = dtDate.getFullYear();
+        if(dtDate<10) dtDate = "0"+dtDate;
+        
+        mnth = dtDate.getMonth()+1;
+        if(mnth < 10) mnth = "0"+mnth;
+        
+        dy = dtDate.getDate()
+        if(dy < 10) dy = "0"+dy;
+        
+        hr = dtDate.getHours()
+        if(hr < 10) hr = "0"+hr;
+        
+        min = dtDate.getMinutes();
+        if(min < 10) min = "0"+min;
+        
+        strDate = yr+mnth+dy+hr+min;
+        strDate = orderID + (Math.ceil((parseInt(strDate) + parseInt(interval))/5)*5) + intFromLetter(user);
+	
+        splitted_string = strDate.split("0").length-1;
+		
+		if (splitted_string < 10)
+			splitted_string = splitted_string+"0";
+        sum = sumString(strDate);
+        //code = /*parseInt(sum) +*/ parseInt(Math.pow(10,splitted_string) * sum);
+		
+		if(isNaN(sum))
+		{
+			document.getElementById("result").innerHTML = "Please enter an order number";
+			return false;
+		}
+		
+		code = splitted_string + sum;
+        document.getElementById("result").innerHTML = code;
+    };
+</script>
+<style type="text/css">
+
+	#result, #btnResult
+	{	
+		font-size: 25px;
+		position:absolute;
+		width:300px;
+		height:100px;
+		left:50%;
+		top:50%;
+		margin-left:-150px;
+		margin-top:-50px;
+		text-align: center;
+	}
+	#btnResult
+	{
+		text-align: center;
+		margin-top: 0px;
+	}
+</style>
+</head>
+
+<body>
+    <div id="result">	&nbsp; </div>
+	<div id="btnResult">
+		<input type="Text" name="txtorderID" id="orderID" /> <br/>
+		<button onclick="getCode();">Generate Code</button>
+	</div>
+</body>
+</html> 
